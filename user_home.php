@@ -1,7 +1,8 @@
-<?php
+  <?php
   require("dbconnect.php");  
-  $dept_city = $arr_city = $dept_date =$passanger = $class="";
-  $dept_cityErr = $arr_cityErr = $dept_dateErr = $passangerErr =$classErr="";
+
+  $dept_city = $arr_city = $dept_date ="";
+  $dept_cityErr = $arr_cityErr = $dept_dateErr ="";
   if ($_SERVER["REQUEST_METHOD"] == "POST"){
     if (empty($_POST["dept_city"])) {
       $dept_cityErr = "Departure city is required";
@@ -10,63 +11,48 @@
     }
     if (empty($_POST["arr_city"])) {
         $arr_cityErr = "Arrival city is required";
-      }else{
+    }
+      else{
         $arr_city=$_POST["arr_city"];
     }
-    // if(!filter_var($_POST["email"],FILTER_VALIDATE_EMAIL)){
-    //   $emailErr = "Inavlid Email Address";
-    // } else {
-    //   $email=$_POST["email"];
-    // }
-      // if (empty($_POST["email"]) || !filter_var($email,FILTER_VALIDATE_EMAIL)) {
-      // $emailErr = "Email should be in proper fromat and no empty";
-      // $email=$_POST["email"];
-      // }
-      // elseif (!filter_var($email,FILTER_VALIDATE_EMAIL)) {
-      //   $emailErr="Inavlid Email Format";
-      // } 
-      // else {
-        
-      // }
     if (empty($_POST["dept_date"])) {
       $dept_dateErr = "Depature Date is required";
     }
      else {
       $dept_date=$_POST["dept_date"];
     }
-    if (empty($_POST["passanger"])) {
-      $passangerErr = "Passanger is required";
-    } else {
-      $passanger=$_POST["passanger"];
-    }
-    if (empty($_POST["class"])) {
-        $classErr = "Class is required";
-      } else {
-        $class=$_POST["class"];
+    if($dept_cityErr == "" && $arr_cityErr=="" && $dept_dateErr==""){
+      if (isset($_POST["dept_city"]) && $_POST["dept_city"] != '') {
+        $dept_city = mysqli_real_escape_string($conn, $_POST["dept_city"]);
+        $search_from = " AND from_city LIKE '%$dept_city%'";
       }
-  }
-    // $mobile=$_POST["mobile"];
-    // $pass=$_POST["password"];
-    if(isset($dept_city) && $dept_city != "" && isset($arr_city) && $arr_city != "" && isset($dept_date) && $dept_date != "" && isset($passanger) && $passanger != ""  && isset($class) && $class != ""){
-    $query="insert into booking (dept_city, arr_city, dept_date, passanger,class) values('{$dept_city}','{$arr_city}','{$dept_date}'    ,{$passanger},'{$class}')";
-    if(mysqli_query($conn,$query)==1){
-      $dept_city="";
-      $arr_city="";
-      $dept_date="";
-      $passanger="";
-      $class="";
-      header("location:show_flight.php");
+      if (isset($_POST["arr_city"]) && $_POST["arr_city"] != '') {
+          $arr_city = mysqli_real_escape_string($conn, $_POST["arr_city"]);
+          $search_to = " AND to_city LIKE '%$arr_city%'";
+      }
+      if (isset($_POST["dept_date"]) && $_POST["dept_date"] != '') {
+          $dept_date = mysqli_real_escape_string($conn, $_POST["dept_date"]);
+          $search_date = " AND date_dep LIKE '%$dept_date%'";
+      }
+
+      $sql = "SELECT * FROM flights WHERE id > 0" . $search_from . $search_to . $search_date;
+      $result = mysqli_query($conn, $sql);
     }
+  } else{
+    $query="select * from flights";
+    $result=mysqli_query($conn,$query);
   }
 ?>
 
 <html>
   <head>
+  <link href='https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/ui-lightness/jquery-ui.css' rel='stylesheet'>
   <link rel="stylesheet" href="my.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"> </script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" > </script>
     <center>
-    Registration Form
+    Search Flights
     </center>
   </head>
   <body>
@@ -96,31 +82,8 @@
             Depart:
           </td>
           <td>
-            <input type="date" name="dept_date" value="<?php echo $dept_date;?>" required>
+            <input type="text" name="dept_date" id="dept_date" autocomplete="off" value="<?php echo $dept_date;?>" required>
             <span style="color:red" class="error">* <?php echo $dept_dateErr;?></span>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            Passanger:
-          </td>
-          <td>
-            <input type="number" name="passanger" id="passanger" required>
-            <span style="color:red" class="error">* <?php echo $passangerErr;?></span>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            Confirm Password:
-          </td>
-          <td>
-            <select name="class" id="class">
-                <option value="economy">Economy</option>
-                <option value="business">Business</option>
-                <option value="first">First</option>
-            </select>
-            <!-- <input type="password" name="co_pass" id="co_pass" required>
-            <span style="color:red" class="error">*</span> -->
           </td>
         </tr>
           <tr>
@@ -128,28 +91,44 @@
               <input type="submit" value="Show Flights" name="submit">
             </td>
           </tr>
-        <!-- <tr>
-            <td>
-              Already a user?
-            </td>
-            <td>
-              <a href="user_login.php">click Here</a>
-            </td>
-        </tr> -->
       </table>
     </form>
+
+    <h1>Flights List</h1>
+    <a href="booking.php">Book Now</a>
+        <table align = "center" border = "3" cellpadding = "3" cellspacing = "2">
+            <tr>
+                <th>Departure City</th>
+                <th>Arrival City</th>
+                <th>Departure Date</th>
+                <th>Departure Time</th>
+             </tr>
+            <?php
+            while ($row = $result->fetch_assoc()) 
+            {
+            ?> 
+            <tr>
+                <td><?php echo $row["from_city"]; ?> </td>
+                <td><?php echo $row["to_city"]; ?> </td>
+                <td><?php echo $row["date_dep"]; ?> </td>
+                <td><?php echo $row["time"]; ?> </td>
+            </tr>
+            <?php } ?>
+        </table>
   </center>
   <script type="text/javascript">
     $(document).ready(function(){
       $('#home').validate({
-    messages:{
-      dept_city:"Departure City is required",
-      arr_city:"Arrival City is required",
-      dept_date:"Departuere date is required",
-      passanger:"Passanger is required",
-      class:"Class is required"
-    }
-      })
+        messages:{
+          dept_city:"Departure City is required",
+          arr_city:"Arrival City is required",
+          dept_date:"Departuere date is required",
+        }
+      });
+      $( "#dept_date" ).datepicker({ 
+        dateFormat: 'yy-mm-dd',
+        minDate:-0 
+      });
     });
   </script>
   </body>

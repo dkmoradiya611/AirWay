@@ -11,7 +11,7 @@
         if($num==1)
         {
             $_SESSION["email"]=$r["email"];
-                header("location:booking.php");
+                header("location:user_home.php");
         }else{
             echo "User not Found";
         }
@@ -29,7 +29,7 @@
                 <table>
                     <tr>
                         <td>
-                            User Name:
+                            Email:
                         </td>
                         <td>
                             <input type="text" name="email" id="email" required>
