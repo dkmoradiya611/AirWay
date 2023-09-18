@@ -23,6 +23,11 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"> </script>
     </head>
+    <center>
+        <h2>
+            User Login
+        </h2>
+    </center>
     <body>
         <center>
             <form action="user_login.php" method="POST" id="login">

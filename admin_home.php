@@ -1,20 +1,23 @@
 <?php
     require("dbconnect.php");
-    $query="select * from users";
-    $result=mysqli_query($conn,$query);
 ?>
 <html>
     <head>
         <link rel="stylesheet" href="my.css">
     </head>
+    <center>
+        <h2>
+            Admin Home
+        </h2>
+    </center>
     <body>
         <center>
         <tr>
             <td>
-                <a href="add_flight.php">Add Flight</a>
+                <a href="add_flight.php" class="btn-link">Add Flight</a>
             </td>
             <td>
-                <a href="users.php">Users</a>
+                <a href="users.php" class="btn-link">Users</a>
             </td>
         </tr>
         </center>

@@ -20,8 +20,6 @@
                 <th>Username</th>
                 <th>EMAIL</th>
                 <th>Mobile No.</th>
-                <th>Password</th>
-                <th>User_type</th>
                 <th>Delete</th>
              </tr>
             <?php
@@ -34,8 +32,6 @@
                 <td><?php echo $row["username"]; ?> </td>
                 <td><?php echo $row["email"]; ?> </td>
                 <td><?php echo $row["mobile"]; ?> </td>
-                <td><?php echo $row["password"]; ?> </td>
-                <td><?php echo $row["user_type"]; ?> </td>
                 <td><a href='deletemodule.php?DID=<?php echo $id; ?>'>DELETE</a></td>
             </tr>
             <?php } ?>

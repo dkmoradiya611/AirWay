@@ -34,7 +34,7 @@
       }
   }
     if(isset($dept_city) && $dept_city != "" && isset($arr_city) && $arr_city != "" && isset($dept_date) && $dept_date != "" && isset($passanger) && $passanger != "" && isset($class) && $class  != ""){
-        $que="select * from flights where from_city=$dept_city AND to_city=$arr_city AND date_dep=$dept_date";
+        $que="select * from flights where from_city='$dept_city' AND to_city='$arr_city' AND date_dep='$dept_date'";
         $result=mysqli_query($conn,$que);
         $rows=mysqli_fetch_row($result);
         if($rows>0){
@@ -49,7 +49,7 @@
               echo "Error inserting into booking table: " . mysqli_error($conn);
             }
         }else{
-          echo "No flights found for the specified criteria.";
+          echo "No flights found for the specified criteria";
         }
     }
 ?>
@@ -123,6 +123,7 @@
         </tr>
             <td>
               <input type="submit" value="Book Flight" name="submit">
+              <a href="user_home.php" class="btn-link">Serach Flights</a>
             </td>
         </tr>
       </table>

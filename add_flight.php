@@ -1,6 +1,5 @@
 <?php
-  require("dbconnect.php");  
-
+  require("dbconnect.php");
   $dept_city = $arr_city = $dept_date =$time = "";
   date_default_timezone_set('Asia/Kolkata'); 
   // $time=date('H:i');
@@ -37,6 +36,9 @@
       $time="";
     }
   }
+  $query="select * from flights";
+  $result=mysqli_query($conn,$query);
+
 ?>
 
 <html>
@@ -45,7 +47,9 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"> </script>
     <center>
+    <h2>
     Add Flights
+    </h2>
     </center>
   </head>
   <body>
@@ -94,6 +98,25 @@
         </tr>
       </table>
     </form>
+    <table align = "center" border = "3" cellpadding = "3" cellspacing = "2">
+            <tr>
+                <th>Departure City</th>
+                <th>Arrival City</th>
+                <th>Departure Date</th>
+                <th>Departure Time</th>
+             </tr>
+            <?php
+            while ($row = $result->fetch_assoc()) 
+            {
+            ?> 
+            <tr>
+                <td><?php echo $row["from_city"]; ?> </td>
+                <td><?php echo $row["to_city"]; ?> </td>
+                <td><?php echo $row["date_dep"]; ?> </td>
+                <td><?php echo $row["time"]; ?> </td>
+            </tr>
+            <?php } ?>
+        </table>
   </center>
   <script type="text/javascript">
     $(document).ready(function(){

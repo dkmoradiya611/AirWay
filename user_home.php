@@ -52,7 +52,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"> </script>
   <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" > </script>
     <center>
-    Search Flights
+      <h2>Search Fight</h2>
     </center>
   </head>
   <body>
@@ -88,14 +88,14 @@
         </tr>
           <tr>
             <td>
-              <input type="submit" value="Show Flights" name="submit">
+              <input type="submit" value="Search Flights" name="submit">
             </td>
           </tr>
       </table>
     </form>
 
     <h1>Flights List</h1>
-    <a href="booking.php">Book Now</a>
+    <a href="booking.php" class="btn-link">Book Now</a>
         <table align = "center" border = "3" cellpadding = "3" cellspacing = "2">
             <tr>
                 <th>Departure City</th>

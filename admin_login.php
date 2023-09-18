@@ -19,16 +19,22 @@
 ?>
 <html>
     <head>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"> </script>
+        <link rel="stylesheet" href="my.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"> </script>
     </head>
+    <center>
+        <h2>
+            Admin Login
+        </h2>
+    </center>
     <body>
         <center>
             <form action="admin_login.php" method="POST" id="login">
                 <table>
                     <tr>
                         <td>
-                            User Name:
+                            Email:
                         </td>
                         <td>
                             <input type="text" name="email" id="email" required>
@@ -47,7 +53,6 @@
                     <tr>
                         <td>
                             <input type="submit" value="submit" name="submit" >
-                            <input type="reset" value="Reset">
                         </td>
                     </tr>
                 </table>

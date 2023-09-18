@@ -1,12 +1,5 @@
 <?php
   require("dbconnect.php");  
-  // $query="insert into users values(1,'Deep','deep@gmail.com',9876543245,123,123)";
-  // mysqli_query($conn,$query);
-  // $query="select * from users";
-  // $result=mysqli_query($conn,$query);
-  // while($r=mysqli_fetch_array($result)){
-  //   echo " ".$r["id"]." ".$r["username"]." ".$r["email"]." ".$r["mobile"]." ".$r["pass"]." ".$r["cpass"];
-  // }
   $nameErr = $emailErr = $mobileErr = $passwordErr = "";
   $username = $email = $mobile = $pass ="";
   if ($_SERVER["REQUEST_METHOD"] == "POST"){
@@ -20,16 +13,6 @@
     } else {
       $email=$_POST["email"];
     }
-      // if (empty($_POST["email"]) || !filter_var($email,FILTER_VALIDATE_EMAIL)) {
-      // $emailErr = "Email should be in proper fromat and no empty";
-      // $email=$_POST["email"];
-      // }
-      // elseif (!filter_var($email,FILTER_VALIDATE_EMAIL)) {
-      //   $emailErr="Inavlid Email Format";
-      // } 
-      // else {
-        
-      // }
     if (empty($_POST["mobile"])) {
       $mobileErr = "Mobile No. is required";
     }
@@ -60,7 +43,9 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"> </script>
     <center>
-    Registration Form
+      <h2>
+        Registration
+      </h2>
     </center>
   </head>
   <body>
@@ -139,9 +124,6 @@
             minlength: 8,
             equalTo: "#password"
         }
-        // email:{
-        //   email:true
-        // }
     },
     messages:{
       username:"Username is required",

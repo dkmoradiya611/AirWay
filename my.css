@@ -23,7 +23,7 @@ input[type=text] {
     margin: 4px 2px;
     cursor: pointer;
   }
-  a:link, a:visited {
+  .btn-link {
     background-color: lightblue;
     color: white;
     border: 2px solid white;
@@ -36,3 +36,11 @@ input[type=text] {
     background-color: green;
     color: white;
   }   */
+  .divider{
+    width:5px;
+    height:auto;
+    display:inline-block;
+}
+  .error{
+    color: red !important;
+  }
